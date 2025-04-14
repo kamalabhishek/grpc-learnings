@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.grpc;
+
+message Movie{
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string genre = 5;
+  string image = 6;
+  bool watchlist = 7;
+}
+
+message MutationResponse {
+  string message = 1;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message EmptyRequest {
+}
+
+service Movies {
+  rpc getMovies(EmptyRequest) returns(stream Movie){}
+  rpc getMovie(Movie) returns(Movie){}
+  rpc saveMovie(Movie) returns(MutationResponse){}
+  rpc deleteMovie(DeleteRequest) returns (MutationResponse){}
+}
